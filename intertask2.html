@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title> Meomory Game  </title>
+    </head>
+    
+    <style>
+        
+        body {
+    
+            background-image: url("char2.png");
+            position: center center fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+            
+           
+        }
+            
+        td {
+            width:50px;
+            height:50px;
+            border: 4px solid black;
+            padding:30px;
+            text-align: center;
+            /* background-color: #ff6600; */
+        }
+    
+        table {
+            
+            margin: auto ;
+            margin-top: 5%;
+        }
+        
+       p {
+            font-size: 20px;
+           text-align: center;
+          /*  visibility: hidden; */
+            
+        }
+        
+        #box1 {
+            
+            width:200px;
+            height:150px;
+            border: 2px solid black;
+            text-align: center;
+            display: inline-block;
+            float:left;
+            margin:30px;
+            margin-top: -200px;
+            
+        }
+        
+        #box2 {
+            
+            width:200px;
+            height:150px;
+            border: 2px solid black;
+            text-align: center;
+            display: inline-block;
+            float:  left;
+            margin:30px;
+            margin-top: -500px;
+            
+        }
+        
+    
+        h1 {
+            
+            font-family: Century Gothic;
+        }
+        
+        h2 {
+            
+            font-family: Century Gothic;
+            color:#6666ff;
+            
+        }
+    </style>
+
+    <body>
+        
+        
+        <table>
+        
+            <tr>
+                <td id="c1" onclick="show(this.id,1)">  <p> -- </p>  </td>
+                <td id="c2" onclick="show(this.id,2)">  <p > -- </p>  </td>
+                <td id="c3" onclick = "show(this.id,3)">  <p> -- </p>  </td>
+                <td id="c4" onclick = "show(this.id,4)">  <p> -- </p>  </td>
+            </tr>
+            
+            <tr>
+                <td id="c5" onclick = "show(this.id,5)">  <p> -- </p>  </td>
+                <td id="c6" onclick = "show(this.id,6)">  <p> -- </p>  </td>
+                <td id="c7" onclick = "show(this.id,7)">  <p> -- </p>  </td>
+                <td id="c8" onclick = "show(this.id,8)">  <p> -- </p>  </td>
+            </tr>
+            
+            <tr>
+                <td id="c9" onclick =  "show(this.id,9)">  <p> -- </p>  </td>
+                <td id="c10" onclick = "show(this.id,10)">  <p> -- </p> </td>
+                <td id="c11" onclick = "show(this.id,11)">  <p> -- </p> </td>
+                <td id="c12" onclick = "show(this.id,12)">  <p> -- </p> </td>
+            </tr>
+            
+            <tr>
+                <td id="c13" onclick= "show(this.id,13)"> <p> -- </p> </td>
+                <td id="c14" onclick= "show(this.id,14)"> <p> -- </p> </td>
+                <td id="c15" onclick= "show(this.id,15)"> <p> -- </p> </td>
+                <td id="c16" onclick = "show(this.id,16)"> <p> -- </p> </td>
+            </tr>
+        
+        
+        </table>
+        
+        <div id="box1">  <h1> Moves </h1> <h2 id="count"> 0 </h2> </div>
+        <div id="box2">  <h1> Score </h1><h2 id="points"> 0 </h2> </div>
+        
+    
+        <script>
+            
+            function testing()
+            {
+                var i,j,y;
+                storearray= [];
+                var countarray = [] ;
+                
+                for (j=0;j<=7;j++) {
+                    
+                    countarray[j]=0;
+                    
+                }
+              
+                
+                    for(i=1;i<=16;i++)
+                    {
+                       assign(); 
+                        
+                        function assign() 
+                        
+                        {
+                        
+                            y = Math.floor((1 + Math.random()*8));
+                            
+                            if(countarray[y-1]<2)
+                                
+                            {
+                                            
+                                storearray[i] = y;
+                                                              
+                                countarray[y-1]++;
+                                
+                            }
+                        
+                           else 
+                               
+                           {    assign();
+                                delete y;
+                           }
+                            
+                            
+                        }
+                    }
+            }
+            
+                testing();
+
+                a=0;
+                count=0;
+                points=0;
+                var temp;
+                var position;
+                function show(click_id,pos)
+            
+                {                 
+                    if(a==0) 
+                    {
+
+                        document.getElementById(click_id).innerHTML =  storearray[pos];
+                        document.getElementById(click_id).style.backgroundColor = "#ff8c1a" ;    
+                        temp = storearray[pos];  
+                        position = click_id;    
+                        a=1;
+                        count++;
+                        document.getElementById("count").innerHTML =count;     
+
+                    }
+
+                    else {
+
+                            b = storearray[pos];
+
+                                if(b!=temp)
+                                    {
+                                        count ++;
+                                        document.getElementById("count").innerHTML = count;
+                                        document.getElementById(click_id).innerHTML = b ;
+                                        document.getElementById(click_id).style.backgroundColor = "#ff8c1a" ;  
+
+                                        setTimeout(function() {
+
+                                        document.getElementById(click_id).style.backgroundColor = "#ffffff" ;  
+                                        document.getElementById(position).style.backgroundColor = "#ffffff" ;
+                                        document.getElementById(click_id).innerHTML = "--";
+                                        document.getElementById(position).innerHTML = "--"; } , 1000);
+                                        a=0;
+
+                                    }
+
+                                else 
+                                    {   count ++;
+                                        points ++;
+                                        document.getElementById("count").innerHTML = count;
+                                        document.getElementById("points").innerHTML = points;
+                                        a=0;
+                                        document.getElementById(click_id).innerHTML = storearray[pos];
+                                        document.getElementById(click_id).style.backgroundColor = "#ff8c1a" ;
+                                        document.getElementById(click_id).onclick = "voidfunc()";
+                                        document.getElementById(position).onclick = "voidfunc()";  // empty function to avoid clicking.
+
+                                    }
+
+
+                    }
+           }
+            
+            
+            function voidfunc() {
+                
+            }                // void function to stop clicking 
+        
+        </script>
+    
+    
+    </body>
+
+
+
+</html>
